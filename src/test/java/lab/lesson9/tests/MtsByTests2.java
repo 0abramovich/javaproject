@@ -13,7 +13,7 @@ import java.time.Duration;
 
 @Epic("Оплата мобильного телефона")
 @Feature("Проверка полей формы оплаты")
-public class MtsByTests2 {
+    public class MtsByTests2 {
     private WebDriver driver;
     private HomePage homePage;
 
@@ -48,14 +48,18 @@ public class MtsByTests2 {
     @Description("Проверка отображения фрейма оплаты после ввода данных")
     @Severity(SeverityLevel.CRITICAL)
     public void getPaymentFrame() throws InterruptedException {
-        homePage.enterPhoneNumber("297777777");
-        homePage.enterSum("10");
-        homePage.enterEmail("test@test.com");
-        homePage.clickContinueButton();
+        try {
+            homePage.enterPhoneNumber("297777777");
+            homePage.enterSum("10");
+            homePage.enterEmail("test@test.com");
+            homePage.clickContinueButton();
 
-        // Ожидание загрузки фрейма
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@style='visibility: visible;'][1]")));
+            // Ожидание загрузки фрейма
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@style='visibility: visible;'][1]")));
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 2)
@@ -63,9 +67,13 @@ public class MtsByTests2 {
     @Description("Проверка, что сумма на форме оплаты равна введенной сумме")
     @Severity(SeverityLevel.NORMAL)
     public void checkSumma() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement summa = driver.findElement(By.xpath("//div[@class='pay-description__cost']/span[text()='10.00 BYN']"));
-        Assert.assertTrue(summa.isDisplayed(), "Сумма оплаты не соответствует введенной");
+        try {
+            Thread.sleep(2000);
+            WebElement summa = driver.findElement(By.xpath("//div[@class='pay-description__cost']/span[text()='10.00 BYN']"));
+            Assert.assertTrue(summa.isDisplayed(), "Сумма оплаты не соответствует введенной");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 3)
@@ -73,9 +81,13 @@ public class MtsByTests2 {
     @Description("Проверка, что сумма на кнопке оплаты равна введенной сумме")
     @Severity(SeverityLevel.NORMAL)
     public void checkSummaButton() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement summaButton = driver.findElement(By.xpath("//button[@class='colored disabled'][contains(text(), 'Оплатить  10.00 BYN')]"));
-        Assert.assertTrue(summaButton.isDisplayed(), "Сумма на кнопке не соответствует введенной");
+        try {
+            Thread.sleep(2000);
+            WebElement summaButton = driver.findElement(By.xpath("//button[@class='colored disabled'][contains(text(), 'Оплатить  10.00 BYN')]"));
+            Assert.assertTrue(summaButton.isDisplayed(), "Сумма на кнопке не соответствует введенной");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 4)
@@ -83,9 +95,13 @@ public class MtsByTests2 {
     @Description("Проверка, что номер телефона на форме оплаты присутствует и равен введенному номеру")
     @Severity(SeverityLevel.NORMAL)
     public void checkPhoneNumber() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement phoneNumber = driver.findElement(By.xpath("//div[@class='pay-description__text']/span[contains(text(), 'Номер:375297777777')]"));
-        Assert.assertTrue(phoneNumber.isDisplayed(), "Номер телефона не соответствует");
+        try {
+            Thread.sleep(2000);
+            WebElement phoneNumber = driver.findElement(By.xpath("//div[@class='pay-description__text']/span[contains(text(), 'Номер:375297777777')]"));
+            Assert.assertTrue(phoneNumber.isDisplayed(), "Номер телефона не соответствует");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 5)
@@ -93,9 +109,13 @@ public class MtsByTests2 {
     @Description("Проверка, что плейсхолдер 'Номер карты' присутствует в поле для ввода кредитной карты")
     @Severity(SeverityLevel.NORMAL)
     public void checkCardNumberPlaceholder() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement cardNumberPlaceholder = driver.findElement(By.xpath("//label[@class='ng-tns-c46-1 ng-star-inserted'][text()='Номер карты']"));
-        Assert.assertTrue(cardNumberPlaceholder.isDisplayed(), "Плейсхолдер 'Номер Карты' не отображается");
+        try {
+            Thread.sleep(2000);
+            WebElement cardNumberPlaceholder = driver.findElement(By.xpath("//label[@class='ng-tns-c46-1 ng-star-inserted'][text()='Номер карты']"));
+            Assert.assertTrue(cardNumberPlaceholder.isDisplayed(), "Плейсхолдер 'Номер Карты' не отображается");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 6)
@@ -103,9 +123,13 @@ public class MtsByTests2 {
     @Description("Проверка, что плейсхолдер 'Срок действия' присутствует в поле для ввода срока кредитной карты")
     @Severity(SeverityLevel.NORMAL)
     public void checkCardExpirationPlaceholder() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement cardExpirationPlaceholder = driver.findElement(By.xpath("//label[@class='ng-tns-c46-4 ng-star-inserted'][text()='Срок действия']"));
-        Assert.assertTrue(cardExpirationPlaceholder.isDisplayed(), "Плейсхолдер 'Срок Действия' не отображается");
+        try {
+            Thread.sleep(2000);
+            WebElement cardExpirationPlaceholder = driver.findElement(By.xpath("//label[@class='ng-tns-c46-4 ng-star-inserted'][text()='Срок действия']"));
+            Assert.assertTrue(cardExpirationPlaceholder.isDisplayed(), "Плейсхолдер 'Срок Действия' не отображается");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 7)
@@ -113,9 +137,13 @@ public class MtsByTests2 {
     @Description("Проверка, что плейсхолдер 'CVC' присутствует в поле для ввода")
     @Severity(SeverityLevel.NORMAL)
     public void checkCVCPlaceholder() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement cvcPlaceholder = driver.findElement(By.xpath("//label[@class='ng-tns-c46-5 ng-star-inserted'][text()='CVC']"));
-        Assert.assertTrue(cvcPlaceholder.isDisplayed(), "Плейсхолдер 'CVC' не отображается");
+        try {
+            Thread.sleep(2000);
+            WebElement cvcPlaceholder = driver.findElement(By.xpath("//label[@class='ng-tns-c46-5 ng-star-inserted'][text()='CVC']"));
+            Assert.assertTrue(cvcPlaceholder.isDisplayed(), "Плейсхолдер 'CVC' не отображается");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 8)
@@ -123,9 +151,13 @@ public class MtsByTests2 {
     @Description("Проверка, что плейсхолдер 'Имя держателя (как на карте)' присутствует в поле для ввода имени держателя карты")
     @Severity(SeverityLevel.NORMAL)
     public void checkCardholderNamePlaceholder() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement cardholderNamePlaceholder = driver.findElement(By.xpath("//label[@class='ng-tns-c46-3 ng-star-inserted'][text()='Имя держателя (как на карте)']"));
-        Assert.assertTrue(cardholderNamePlaceholder.isDisplayed(), "Плейсхолдер 'Имя держателя (как на карте)' не отображается");
+        try {
+            Thread.sleep(2000);
+            WebElement cardholderNamePlaceholder = driver.findElement(By.xpath("//label[@class='ng-tns-c46-3 ng-star-inserted'][text()='Имя держателя (как на карте)']"));
+            Assert.assertTrue(cardholderNamePlaceholder.isDisplayed(), "Плейсхолдер 'Имя держателя (как на карте)' не отображается");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 9)
@@ -133,9 +165,13 @@ public class MtsByTests2 {
     @Description("Проверка, что иконка 'Mastercard' присутствует на форме оплаты")
     @Severity(SeverityLevel.MINOR)
     public void checkMastercardIcon() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement mastercardIcon = driver.findElement(By.xpath("//img[@class='ng-tns-c61-0 ng-star-inserted'][@src='assets/images/payment-icons/card-types/mastercard-system.svg']"));
-        Assert.assertTrue(mastercardIcon.isDisplayed(), "Иконка 'Mastercard' не отображается");
+        try {
+            Thread.sleep(2000);
+            WebElement mastercardIcon = driver.findElement(By.xpath("//img[@class='ng-tns-c61-0 ng-star-inserted'][@src='assets/images/payment-icons/card-types/mastercard-system.svg']"));
+            Assert.assertTrue(mastercardIcon.isDisplayed(), "Иконка 'Mastercard' не отображается");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 10)
@@ -143,9 +179,13 @@ public class MtsByTests2 {
     @Description("Проверка, что иконка 'Visa' присутствует на форме оплаты")
     @Severity(SeverityLevel.MINOR)
     public void checkVisaIcon() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement visaIcon = driver.findElement(By.xpath("//img[@class='ng-tns-c61-0 ng-star-inserted'][@src='assets/images/payment-icons/card-types/visa-system.svg']"));
-        Assert.assertTrue(visaIcon.isDisplayed(), "Иконка 'Visa' не отображается");
+        try {
+            Thread.sleep(2000);
+            WebElement visaIcon = driver.findElement(By.xpath("//img[@class='ng-tns-c61-0 ng-star-inserted'][@src='assets/images/payment-icons/card-types/visa-system.svg']"));
+            Assert.assertTrue(visaIcon.isDisplayed(), "Иконка 'Visa' не отображается");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 11)
@@ -153,9 +193,13 @@ public class MtsByTests2 {
     @Description("Проверка, что иконка 'BelCard' присутствует на форме оплаты")
     @Severity(SeverityLevel.MINOR)
     public void checkBelCardIcon() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement belCardIcon = driver.findElement(By.xpath("//img[@class='ng-tns-c61-0 ng-star-inserted'][@src='assets/images/payment-icons/card-types/belkart-system.svg']"));
-        Assert.assertTrue(belCardIcon.isDisplayed(), "Иконка 'BelCard' не отображается");
+        try {
+            Thread.sleep(2000);
+            WebElement belCardIcon = driver.findElement(By.xpath("//img[@class='ng-tns-c61-0 ng-star-inserted'][@src='assets/images/payment-icons/card-types/belkart-system.svg']"));
+            Assert.assertTrue(belCardIcon.isDisplayed(), "Иконка 'BelCard' не отображается");
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 
     @Test(priority = 12)
@@ -163,12 +207,16 @@ public class MtsByTests2 {
     @Description("Проверка, что иконка 'MIR' или 'Maestro' присутствует на форме оплаты")
     @Severity(SeverityLevel.MINOR)
     public void checkMirOrMaestroIcon() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement mirIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system.svg']"));
-        WebElement maestroIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/maestro-system.svg']"));
-        boolean isMirOrMaestroDisplayed = mirIcon.isDisplayed() || maestroIcon.isDisplayed();
-        Assert.assertTrue(isMirOrMaestroDisplayed, "Иконка 'MIR' или 'Маестро' не отображается");
+        try {
+            Thread.sleep(2000);
+            WebElement mirIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system.svg']"));
+            WebElement maestroIcon = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/maestro-system.svg']"));
+            boolean isMirOrMaestroDisplayed = mirIcon.isDisplayed() || maestroIcon.isDisplayed();
+            Assert.assertTrue(isMirOrMaestroDisplayed, "Иконка 'MIR' или 'Маестро' не отображается");
 
-        driver.switchTo().defaultContent();
+            driver.switchTo().defaultContent();
+        } finally {
+            ScreenshotUtils.takeScreenshot(driver);
+        }
     }
 }
